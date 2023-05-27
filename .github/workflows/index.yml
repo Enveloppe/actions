@@ -2,6 +2,10 @@ name: Index Creation
 
 on: 
   workflow_call:
+    secrets:
+        GH_PAT:
+            required: true
+            description: "Github personal access token"
     inputs:
       category_name:
         type: string
@@ -101,24 +105,8 @@ jobs:
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           python3 overrides/hooks/category.py "${{ inputs.category_name }}" ${{steps.args.outputs.dry_run}} ${{ steps.args.outputs.toc_hide }} ${{ steps.args.outputs.nav_hide }} ${{ steps.args.outputs.description }} ${{ steps.args.outputs.parent }} >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-      - name: Set github accounts
+      - name: Push
         if: ${{ inputs.dry_run == false }}
-        run: |
-          echo "🗃️ Set github accounts"
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-      - name: mkdocs build
-        if: ${{ inputs.dry_run == false }}
-        run: |
-          echo "💠Deploy to mkdocs"
-          pip install -r requirements.txt
-          mkdocs gh-deploy --force --clean
-      - name: Push new files
-        if: ${{ inputs.dry_run == false }}
-        run: |
-          echo "📤 Push to repository"
-          git pull
-          rm -rf ./site/
-          git add .
-          git commit -am "Index created"
-          git push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}

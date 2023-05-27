@@ -10,13 +10,19 @@ group:
       ObsidianPublisher/template-gh-pages
       ObsidianPublisher/template-netlify-vercel
   - files:
-      - source: template/gh-pages/
+      - source: template/gh-pages/deploy.yml
         dest: .github/workflows
+      - source: template/gh-pages/.env
+        dest: .github
     repos: |
       ObsidianPublisher/template-gh-pages
   - files:
-      - source: template/netlify/
+      - source: template/netlify/deploy.yml
         dest: .github/workflows
+      - source: template/netlify/.env
+        dest: .github/.env.netlify
+      - source: template/vercel/.env
+        dest: .github/.env.vercel
     repos: |
       ObsidianPublisher/template-netlify-vercel
 

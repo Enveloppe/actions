@@ -1,0 +1,26 @@
+name: Deploy to Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths: 
+      - 'README.md'
+      - 'overrides/**'
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    uses: ObsidianPublisher/actions/.github/workflows/deploy.yml@main
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

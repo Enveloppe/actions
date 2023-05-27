@@ -1,5 +1,6 @@
 name: Repository maintenance
-on: {}
+on:
+  workflow_call:
 jobs:
   unused-images:
     runs-on: ubuntu-latest

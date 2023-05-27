@@ -24,3 +24,7 @@ See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/adva
 ### Github Pages
 
 You don't need to define anything.
+
+### Index
+
+See [documentation](https://obsidian-publisher.netlify.app/mkdocs%20template/workflow/).

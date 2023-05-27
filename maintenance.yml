@@ -1,5 +1,6 @@
 name: Repository maintenance
 description: 'This workflow is triggered daily to clean unused images and update requirements'
+author: lisandra-dev
 
 on: {}
 jobs:

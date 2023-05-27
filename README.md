@@ -1,5 +1,7 @@
 # Reusable workflows 
 
+See [documentation](https://obsidian-publisher.netlify.app/mkdocs%20template/workflow/).
+
 This repository owns all workflows used by the template. 
 
 The "template" (aka workflows you need to copy) are located in the `template` folder.
@@ -41,4 +43,5 @@ This action will update your template by replacing the old files with the new on
 
 This allows you to review the changes before they are applied to your template.
 The `AUTO_MERGE` key in `.github/.env` can be set to `true` to automatically merge the pull request.
+
 

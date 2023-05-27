@@ -19,18 +19,15 @@ jobs:
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
       - name: Clean unused images
-        if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'false' }}
+        if: env.CLEAN == 'true' 
         continue-on-error: true
         run: |
           python find_unused_media.py "$IMG_DIR"
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "[skip ci] Remove unused media"
-          git push
-      - name: Clean unused images (dry run)
-        if: ${{ env.CLEAN == 'true' && env.DRY_RUN == 'true' }}
-        run: |
-          python find_unused_media.py "$IMG_DIR" --dry-run
+      - name: Git commit and push
+        if: env.CLEAN == 'true' && env.DRY_RUN == 'false'
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   other:
     needs: unused-images
     runs-on: ubuntu-latest
@@ -52,12 +49,9 @@ jobs:
           pur -r requirements.txt --skip obsidiantools
           echo "REQUIREMENTSACTIONS=$isExist" >> $GITHUB_ENV
       - name: Push updated requirements
-        continue-on-error: true
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "[AUTO] Update requirements"
-          git push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check cache
         if: env.REQUIREMENTSACTIONS == 'true'
         id: cache
@@ -100,9 +94,6 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
       - name: Push updated requirements
-        continue-on-error: true
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git commit -am "[AUTO] Update requirements"
-          git push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

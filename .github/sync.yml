@@ -1,17 +1,21 @@
 group:
   - files:
-      - template/index.yml
-      - template/maintenance.yml
-      - template/update.yml
+    - source: template/index.yml
+      dest: .github/workflows/index.yml
+    - source: template/maintenance.yml
+      dest: .github/workflows/maintenance.yml
+    - source: template/update.yml
+      dest: .github/workflows/update.yml
     repos: |
       ObsidianPublisher/template-gh-pages
       ObsidianPublisher/template-netlify-vercel
   - files:
-    - template/deploy/gh-pages.yml
+    - sources: template/gh-pages/*
+      dest: .github/workflows
     repos: |
       ObsidianPublisher/template-gh-pages
   - files:
-    - template/deploy/netlify.yml
-    - template/deploy/vercel.yml
+    - sources: template/netlify/*
+      dest: .github/workflows
     repos: |
       ObsidianPublisher/template-netlify-vercel

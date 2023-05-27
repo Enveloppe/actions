@@ -10,12 +10,12 @@ group:
       ObsidianPublisher/template-gh-pages
       ObsidianPublisher/template-netlify-vercel
   - files:
-    - sources: template/gh-pages/*
+    - sources: template/gh-pages/
       dest: .github/workflows
     repos: |
       ObsidianPublisher/template-gh-pages
   - files:
-    - sources: template/netlify/*
+    - sources: template/netlify/
       dest: .github/workflows
     repos: |
       ObsidianPublisher/template-netlify-vercel

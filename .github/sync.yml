@@ -1,0 +1,17 @@
+group:
+  - files:
+      - template/index.yml
+      - template/maintenance.yml
+      - template/update.yml
+    repos: |
+      ObsidianPublisher/template-gh-pages
+      ObsidianPublisher/template-netlify-vercel
+  - files:
+    - template/deploy/gh-pages.yml
+    repos: |
+      ObsidianPublisher/template-gh-pages
+  - files:
+    - template/deploy/netlify.yml
+    - template/deploy/vercel.yml
+    repos: |
+      ObsidianPublisher/template-netlify-vercel

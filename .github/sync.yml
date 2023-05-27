@@ -11,14 +11,14 @@ group:
       ObsidianPublisher/template-netlify-vercel
   - files:
       - source: template/gh-pages/deploy.yml
-        dest: .github/workflows
+        dest: .github/workflows/deploy.yml
       - source: template/gh-pages/.env
-        dest: .github
+        dest: .github/.env
     repos: |
       ObsidianPublisher/template-gh-pages
   - files:
       - source: template/netlify/deploy.yml
-        dest: .github/workflows
+        dest: .github/workflows/deploy.yml
       - source: template/netlify/.env
         dest: .github/.env.netlify
       - source: template/vercel/.env

@@ -1,5 +1,5 @@
 {
     "yaml.schemas": {
-        "https://json.schemastore.org/github-action.json": "file:///d%3A/Documents/Github/Obsidian%20Publisher/actions/maintenance.yml"
+        "https://json.schemastore.org/github-workflow.json": "file:///d%3A/Documents/Github/Obsidian%20Publisher/actions/maintenance.yml"
     }
 }

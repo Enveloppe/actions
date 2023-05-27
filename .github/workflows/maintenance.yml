@@ -2,7 +2,7 @@ name: Repository maintenance
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
+      GH_PAT:
         required: true
 jobs:
   unused-images:
@@ -30,7 +30,7 @@ jobs:
         if: env.CLEAN == 'true' && env.DRY_RUN == 'false'
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
   other:
     needs: unused-images
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
       - name: Push updated requirements
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
       - name: Check cache
         if: env.REQUIREMENTSACTIONS == 'true'
         id: cache
@@ -99,4 +99,4 @@ jobs:
       - name: Push updated requirements
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}

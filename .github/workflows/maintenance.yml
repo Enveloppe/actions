@@ -29,7 +29,7 @@ jobs:
         if: env.CLEAN == 'true'
         run: |
           echo "CLEAN UNUSED IMAGES"
-          pip install mkdocs mkdocs-material
+          pip install mkdocs mkdocs-material Babel
           python find_unused_media.py
       - name: Git commit and push
         if: env.CLEAN == 'true' && env.DRY_RUN == 'false' || !env.ACT 

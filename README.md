@@ -6,6 +6,8 @@ This repository owns all workflows used by the template.
 
 The "template" (aka workflows you need to copy) are located in the `template` folder.
 
+Some workflows needs secrets to be used, notably `author_email` and `author_name` to commit the changes to your repository. If you branch are protected, you need to change it to your own email and name, using a secret for better privacy and security.
+
 ## Deploy
 
 For all workflows, you need to define `GH_PAT`, `author_name` and `author_email` with: 
@@ -14,8 +16,6 @@ GH_PAT: ${{ secrets.GITHUB_TOKEN }}
 author_email: "github-actions[bot]@users.noreply.github.com"
 author_name: "github-actions[bot]"
 ```
-
-`author_email` and `author_name` are used to commit the changes to your repository. If you branch are protected, you need to change it to your own email and name, using a secret for better privacy and security.
 
 See [template](./template) for more details.
 
@@ -38,9 +38,16 @@ See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/adva
 
 You don't need to define anything.
 
-### Index
+### Index & Maintenance
 
 See [documentation](https://obsidian-publisher.netlify.app/mkdocs%20template/workflow/).
+
+You need to define `GH_PAT`, `author_name` and `author_email` with: 
+```
+GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+author_email: "github-actions[bot]@users.noreply.github.com"
+author_name: "github-actions[bot]"
+```
 
 ### Update 
 

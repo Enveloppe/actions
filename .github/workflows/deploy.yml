@@ -6,13 +6,17 @@ on:
         VERCEL_TOKEN:
           required: false
         VERCEL_PROJECT_ID:
-            required: false
+          required: false
         VERCEL_ORG_ID:
-            required: false
+          required: false
         NETLIFY_HOOK:
-            required: false
+          required: false
         GH_PAT:
-            required: true
+          required: true
+        author_name:
+          required: true
+        author_email:
+          required: true
 
 jobs:
   check-env:
@@ -93,6 +97,8 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
+          author_name: ${{ secrets.author_name }}
+          author_email: ${{ secrets.author_email }}
   netlify:
     needs: [check-env, generate_graph]
     runs-on: ubuntu-latest

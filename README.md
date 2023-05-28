@@ -8,10 +8,14 @@ The "template" (aka workflows you need to copy) are located in the `template` fo
 
 ## Deploy
 
-For all workflows, you need to define `GH_PAT`, with: 
+For all workflows, you need to define `GH_PAT`, `author_name` and `author_email` with: 
 ```
 GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+author_email: "github-actions[bot]@users.noreply.github.com"
+author_name: "github-actions[bot]"
 ```
+
+`author_email` and `author_name` are used to commit the changes to your repository. If you branch are protected, you need to change it to your own email and name, using a secret for better privacy and security.
 
 See [template](./template) for more details.
 

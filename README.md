@@ -8,6 +8,13 @@ The "template" (aka workflows you need to copy) are located in the `template` fo
 
 ## Deploy
 
+For all workflows, you need to define `GH_PAT`, with: 
+```
+GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+```
+
+See [template](./template) for more details.
+
 ### Netlify
 
 You need to define NETLIFY_HOOK in your repository secrets.

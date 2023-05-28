@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-          cache: 'pip'
+          python-version: 3.11
+          cache: pip
       - name: Get .env file
         uses: xom9ikk/dotenv@v2.2.0
         with:
@@ -26,7 +26,6 @@ jobs:
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
       - name: Clean unused images
         if: env.CLEAN == 'true'
-        continue-on-error: true
         run: |
           pip install mkdocs mkdocs-material
           python find_unused_media.py

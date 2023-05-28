@@ -27,6 +27,7 @@ jobs:
       - name: Clean unused images
         if: env.CLEAN == 'true'
         run: |
+          echo "CLEAN UNUSED IMAGES"
           pip install mkdocs mkdocs-material
           python find_unused_media.py
       - name: Git commit and push

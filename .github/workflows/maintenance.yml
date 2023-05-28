@@ -24,6 +24,7 @@ jobs:
         id: check-env
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
+          echo "ACT=${{ env.ACT }}" >> $GITHUB_OUTPUT
       - name: Clean unused images
         if: env.CLEAN == 'true'
         run: |
@@ -31,7 +32,7 @@ jobs:
           pip install mkdocs mkdocs-material
           python find_unused_media.py
       - name: Git commit and push
-        if: env.CLEAN == 'true' && env.DRY_RUN == 'false' || !env.ACT
+        if: env.CLEAN == 'true' && env.DRY_RUN == 'false' || !env.ACT 
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
@@ -57,7 +58,7 @@ jobs:
           echo "REQUIREMENTSACTIONS=$isExist" >> $GITHUB_ENV
       - name: Push updated requirements
         uses: actions-js/push@master
-        if: !env.ACT
+        if: ${{ !env.ACT }}
         with:
           github_token: ${{ secrets.GH_PAT }}
       - name: Check cache
@@ -90,7 +91,7 @@ jobs:
           pur -r requirements.txt
       - name: Push updated requirements
         uses: actions-js/push@master
-        if: !env.ACT
+        if: ${{ !env.ACT }}
         with:
           github_token: ${{ secrets.GH_PAT }}
       - name: Check cache

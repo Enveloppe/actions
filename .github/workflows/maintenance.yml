@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
       - name: Get .env file
         uses: xom9ikk/dotenv@v2.2.0
         with:
@@ -83,6 +86,10 @@ jobs:
         run: |
           pip install pur
           pur -r requirements.txt
+      - name: Push updated requirements
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
       - name: Check cache
         id: cache
         uses: actions/cache@v3
@@ -96,7 +103,3 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-      - name: Push updated requirements
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}

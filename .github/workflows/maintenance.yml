@@ -4,6 +4,10 @@ on:
     secrets:
       GH_PAT:
         required: true
+      author_name:
+        required: true
+      author_email:
+        required: true
 jobs:
   unused-images:
     runs-on: ubuntu-latest
@@ -36,8 +40,8 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_name: "github-actions[bot]"
-          author_email: "github-actions[bot]@users.noreply.github.com"
+          author_name: ${{ secrets.author_name }}
+          author_email: ${{ secrets.author_email }}
   update-other:
     needs: unused-images
     runs-on: ubuntu-latest
@@ -63,8 +67,8 @@ jobs:
         if: ${{ !env.ACT }}
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_name: "github-actions[bot]"
-          author_email: "github-actions[bot]@users.noreply.github.com"
+          author_name: ${{ secrets.author_name }}
+          author_email: ${{ secrets.author_email }}
       - name: Check cache
         if: env.REQUIREMENTSACTIONS == 'true'
         id: cache
@@ -98,8 +102,8 @@ jobs:
         if: ${{ !env.ACT }}
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_name: "github-actions[bot]"
-          author_email: "github-actions[bot]@users.noreply.github.com"
+          author_name: ${{ secrets.author_name }}
+          author_email: ${{ secrets.author_email }}
       - name: Check cache
         id: cache
         uses: actions/cache@v3

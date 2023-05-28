@@ -11,6 +11,8 @@ on:
             required: false
         NETLIFY_HOOK:
             required: false
+        GH_PAT:
+            required: true
 
 jobs:
   check-env:
@@ -88,12 +90,9 @@ jobs:
       - name: Push generated graph
         if: ${{ steps.new-files.outputs.NEW_FILES == 'TRUE' && !env.ACT}}
         continue-on-error: true
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@users.noreply.github.com'
-          git add .
-          git commit -am "[skip netlify] Update generated graph"
-          git push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
   netlify:
     needs: [check-env, generate_graph]
     runs-on: ubuntu-latest

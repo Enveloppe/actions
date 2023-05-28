@@ -106,7 +106,7 @@ jobs:
           python3 overrides/hooks/category.py "${{ inputs.category_name }}" ${{steps.args.outputs.dry_run}} ${{ steps.args.outputs.toc_hide }} ${{ steps.args.outputs.nav_hide }} ${{ steps.args.outputs.description }} ${{ steps.args.outputs.parent }} >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
       - name: Push
-        if: ${{ inputs.dry_run == false }}
+        if: ${{ inputs.dry_run == false || !env.ACT}}
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}

@@ -28,7 +28,8 @@ jobs:
         if: env.CLEAN == 'true' 
         continue-on-error: true
         run: |
-          python find_unused_media.py "$IMG_DIR"
+          pip install mkdocs mkdocs-material
+          python find_unused_media.py
       - name: Git commit and push
         if: env.CLEAN == 'true' && env.DRY_RUN == 'false'
         uses: actions-js/push@master

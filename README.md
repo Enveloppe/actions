@@ -23,7 +23,7 @@ You can see all available options in the [template](./template) folder.
 
 # Deploy
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/advanced%20workflow/) for more information.
+See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/) for more information.
 
 | Key                 | Context | Type   | Required | Description                                       | Default                                        |
 |---------------------|---------|--------|----------|---------------------------------------------------|------------------------------------------------|
@@ -40,7 +40,7 @@ See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/adva
 
 You need to define `NETLIFY_HOOK` in your repository secrets.
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/advanced%20workflow/#netlify) on how to add it.
+See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/#netlify) on how to add it.
 
 ## Vercel
 
@@ -49,7 +49,7 @@ You need to define:
 - `VERCEL_PROJECT_ID`
 - `VERCEL_TOKEN`
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/advanced%20workflow/#vercel) on how to add it.
+See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/#vercel) on how to add it.
 
 ## Github Pages
 

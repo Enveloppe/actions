@@ -26,7 +26,7 @@ group:
     repos: |
       ObsidianPublisher/template-netlify-vercel
   - files: 
-      - sources: README.md
+      - source: README.md
         dest: docs/Mkdocs Template/Workflow.md
     repos: |
       ObsidianPublisher/docs

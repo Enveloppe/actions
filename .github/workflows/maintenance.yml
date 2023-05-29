@@ -21,6 +21,7 @@ jobs:
         with:
           python-version: 3.11
           cache: pip
+          
       - name: Get .env file
         uses: xom9ikk/dotenv@v2.2.0
         with:
@@ -77,7 +78,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv-other
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
+          key: pip-${{ hashFiles('requirements_actions.txt') }}
       - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
         name: Recreate cache
         run: |
@@ -111,7 +112,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
+          key: pip-${{ hashFiles('requirements.txt') }}
       - if: steps.cache.outputs.cache-hit != 'true'
         name: Recreate cache
         run: |

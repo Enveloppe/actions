@@ -80,7 +80,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv-other
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
+          key: pip-${{ hashFiles('requirements_actions.txt') }}
       - name: Update cache
         if: steps.new-files.outputs.NEW_FILES == 'TRUE' && steps.python_cache.outputs.cache-hit != 'true' 
         run: |
@@ -147,7 +147,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv
-          key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
+          key: pip-${{ hashFiles('requirements.txt') }}
       - if: steps.python_cache.outputs.cache-hit != 'true'
         name: Recreate python cache
         run: |

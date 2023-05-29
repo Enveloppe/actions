@@ -3,20 +3,17 @@ name: Index Creation
 on: 
   workflow_call:
     secrets:
-        GH_PAT:
-            required: true
-            description: "Github personal access token"
-    inputs:
-      author_email: 
+      GH_PAT:
+        required: true
+        description: "Github personal access token"
+      AUTHOR_EMAIL:
         required: false
         description: "The author email"
-        default: "github-actions[bot]@users.noreply.github.com"
-        type: string
-      author_name:
+      AUTHOR_NAME:
         required: false
         description: "The author name"
-        default: "github-actions[bot]"
-        type: string
+      
+    inputs:
       category_name:
         type: string
         required: true
@@ -120,5 +117,5 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_email: ${{ inputs.author_email }}
-          author_name: ${{ inputs.author_name }}
+          author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+          author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}

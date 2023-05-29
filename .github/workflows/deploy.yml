@@ -13,17 +13,11 @@ on:
           required: false
         GH_PAT:
           required: true
-    inputs:
-      author_email: 
-        required: false
-        description: "The author email"
-        default: "github-actions[bot]@users.noreply.github.com"
-        type: string
-      author_name:
-        required: false
-        description: "The author name"
-        default: "github-actions[bot]"
-        type: string
+        AUTHOR_EMAIL:
+          required: false
+        AUTHOR_NAME:
+          required: false
+
 
 jobs:
   check-env:
@@ -46,6 +40,7 @@ jobs:
           echo "GENERATE_GRAPH=${{ env.GENERATE_GRAPH }}" >> $GITHUB_OUTPUT
           echo "ACTIONS_REQUIREMENTS=${{ env.ACTIONS_REQUIREMENTS }}" >> $GITHUB_OUTPUT
           echo "ACT (LOCAL RUN) = ${{ env.ACT }}"
+
   generate_graph:
     needs: check-env
     runs-on: ubuntu-latest
@@ -104,8 +99,8 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_name: ${{ inputs.author_name }}
-          author_email: ${{ inputs.author_email }}
+          author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+          author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
   netlify:
     needs: [check-env, generate_graph]
     runs-on: ubuntu-latest

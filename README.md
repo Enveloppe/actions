@@ -32,8 +32,8 @@ See [documentation](https://obsidian-publisher.netlify.app/advanced%20setup/adva
 | `VERCEL_ORG_ID`     | secrets | string | `false`  | Vercel Organization ID (only in vercel workflows) |                                                |
 | `VERCEL_PROJECT_ID` | secrets | string | `false`  | Vercel Project ID (only in vercel)                |                                                |
 | `NETLIFY_HOOK`      | secrets | string | `false`  | Netlify Hook (only in netlify workflows)          |                                                |
-| `author_name`       | inputs  | string | `false`  | Author name for signed commit                     | `github-actions[bot]`                          |
-| `author_email`      | inputs  | string | `false`  | Author email for signed commit                    | `github-actions[bot]@users.noreply.github.com` |
+| `author_name`       | secrets  | string | `false`  | Author name for signed commit                     | `github-actions[bot]`                          |
+| `author_email`      | secrets  | string | `false`  | Author email for signed commit                    | `github-actions[bot]@users.noreply.github.com` |
 
 
 ## Netlify
@@ -67,8 +67,8 @@ This workflows will, every 24 hours or on demand:
 | Key            | Context | Type   | Required | Description                    | Default                                        |
 |----------------|---------|--------|----------|--------------------------------|------------------------------------------------|
 | `GH_PAT`       | secrets | string | `true`   | Github Personal Access Token   |                                                |
-| `author_name`  | inputs  | string | `false`  | Author name for signed commit  | `github-actions[bot]`                          |
-| `author_email` | inputs  | string | `false`  | Author email for signed commit | `github-actions[bot]@users.noreply.github.com` |
+| `author_name`  | secrets  | string | `false`  | Author name for signed commit  | `github-actions[bot]`                          |
+| `author_email` | secrets  | string | `false`  | Author email for signed commit | `github-actions[bot]@users.noreply.github.com` |
 
 
 ## Index (`index.yml`)
@@ -93,8 +93,8 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
  Key             | Context | Type    | Required | Description                                          | Default                                        
 -----------------|---------|---------|----------|------------------------------------------------------|------------------------------------------------
  `GH_PAT`        | secrets | string  | `true`   | Github Personal Access Token                         |                                                
- `author_name`   | inputs  | string  | `false`  | Author name for signed commit                        | `github-actions[bot]`                          
- `author_email`  | inputs  | string  | `false`  | Author email for signed commit                       | `github-actions[bot]@users.noreply.github.com` 
+ `author_name`   | secrets  | string  | `false`  | Author name for signed commit                        | `github-actions[bot]`                          
+ `author_email`  | secrets  | string  | `false`  | Author email for signed commit                       | `github-actions[bot]@users.noreply.github.com` 
  `category_name` | inputs  | string  | `true`   | The new folder name                                  |                                                
  `path`          | inputs  | string  | `false`  | The path of the new folder. Ex: category/subcategory |                                                
  `description`   | inputs  | string  | `false`  | The description of the new folder                    |                                                
@@ -129,4 +129,5 @@ Using the if keyword Target the merging event name with: `if: startsWith(github.
 ## Workflow run time & limits
 
 If you use workflows (every workflow) on a **private** repository, you should be aware that you have a limited amount of workflow run time, 2000 minutes (3000 minutes with a pro account).
+
 

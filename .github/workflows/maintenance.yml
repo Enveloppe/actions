@@ -52,6 +52,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+        id: setup
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -78,7 +79,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv-other
-          key: pip-${{ hashFiles('requirements_actions.txt') }}
+          key: pip-${{ steps.setup.outputs.python-version }}-${{ hashFiles('requirements_actions.txt') }}
       - if: steps.cache.outputs.cache-hit != 'true' && env.REQUIREMENTSACTIONS == 'true'
         name: Recreate cache
         run: |
@@ -93,6 +94,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+        id: setup
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -112,7 +114,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv
-          key: pip-${{ hashFiles('requirements.txt') }}
+          key: pip-${{ steps.setup.outputs.python-version }}-${{ hashFiles('requirements.txt') }}
       - if: steps.cache.outputs.cache-hit != 'true'
         name: Recreate cache
         run: |

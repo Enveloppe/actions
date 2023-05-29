@@ -49,4 +49,3 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
           merge-method: squash
-          

@@ -13,10 +13,17 @@ on:
           required: false
         GH_PAT:
           required: true
-        author_name:
-          required: true
-        author_email:
-          required: true
+    inputs:
+      author_email: 
+        required: false
+        description: "The author email"
+        default: "github-actions[bot]@users.noreply.github.com"
+        type: string
+      author_name:
+        required: false
+        description: "The author name"
+        default: "github-actions[bot]"
+        type: string
 
 jobs:
   check-env:
@@ -97,8 +104,8 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_name: ${{ secrets.author_name }}
-          author_email: ${{ secrets.author_email }}
+          author_name: ${{ inputs.author_name }}
+          author_email: ${{ inputs.author_email }}
   netlify:
     needs: [check-env, generate_graph]
     runs-on: ubuntu-latest

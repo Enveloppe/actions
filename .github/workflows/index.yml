@@ -6,13 +6,17 @@ on:
         GH_PAT:
             required: true
             description: "Github personal access token"
-        author_email:
-            required: true
-            description: "The email of the author"
-        author_name:
-            required: true
-            description: "The name of the author"
     inputs:
+      author_email: 
+        required: false
+        description: "The author email"
+        default: "github-actions[bot]@users.noreply.github.com"
+        type: string
+      author_name:
+        required: false
+        description: "The author name"
+        default: "github-actions[bot]"
+        type: string
       category_name:
         type: string
         required: true
@@ -116,5 +120,5 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
-          author_email: "github-actions[bot]@users.noreply.github.com"
-          author_name: "github-actions[bot]"
+          author_email: ${{ inputs.author_email }}
+          author_name: ${{ inputs.author_name }}

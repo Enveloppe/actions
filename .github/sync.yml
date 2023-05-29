@@ -9,6 +9,7 @@ group:
     repos: |
       ObsidianPublisher/template-gh-pages
       ObsidianPublisher/template-netlify-vercel
+      lisandra-dev/mara-li
   - files:
       - source: template/gh-pages/deploy.yml
         dest: .github/workflows/deploy.yml
@@ -25,4 +26,8 @@ group:
         dest: .github/.env.vercel
     repos: |
       ObsidianPublisher/template-netlify-vercel
-
+  - files:
+    - source: template/netlify/deploy.yml
+      dest: .github/workflows/deploy.yml
+    repos: |
+      lisandra-dev/mara-li

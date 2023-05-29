@@ -26,3 +26,8 @@ group:
         dest: .github/.env.vercel
     repos: |
       ObsidianPublisher/template-netlify-vercel
+  - files: 
+      - sources: README.md
+        dest: docs/Mkdocs Template/Workflow.md
+    repos: |
+      ObsidianPublisher/docs

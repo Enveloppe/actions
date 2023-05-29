@@ -16,14 +16,14 @@ AUTO_MERGE=false
 DRY_RUN=false
 ```
 
-You can see all available options in the [template](./template) folder.
+You can see all available options in the [template](https://github.com/ObsidianPublisher/actions/tree/main/template) folder.
 
 > **Warning**  
 > Don't download the `.github/workflows` folder. You need to use the file in the `template` folder.
 
 # Deploy
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/) for more information.
+See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_workflow/) for more information.
 
 | Key                 | Context | Type   | Required | Description                                       | Default                                        |
 |---------------------|---------|--------|----------|---------------------------------------------------|------------------------------------------------|
@@ -40,7 +40,7 @@ See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/) f
 
 You need to define `NETLIFY_HOOK` in your repository secrets.
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/#netlify) on how to add it.
+See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_workflow/#netlify) on how to add it.
 
 ## Vercel
 
@@ -49,7 +49,7 @@ You need to define:
 - `VERCEL_PROJECT_ID`
 - `VERCEL_TOKEN`
 
-See [documentation](https://obsidian-publisher.netlify.app/advanced/advanced/#vercel) on how to add it.
+See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_workflow/#vercel) on how to add it.
 
 ## Github Pages
 

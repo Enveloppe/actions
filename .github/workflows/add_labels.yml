@@ -1,0 +1,29 @@
+name: Add labels
+on:
+  issues:
+    types: [opened, edited, reopened]
+env:
+    EVENT_ISSUE_TITLE: ${{ github.event.issue.title }}
+jobs:
+  add_labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: downcase
+        run: | 
+            echo "EVENT_ISSUE_TITLE=${ISSUE,,}" >> $GITHUB_ENV
+        env:
+            ISSUE: ${{ env.EVENT_ISSUE_TITLE }}
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ contains(env.EVENT_ISSUE_TITLE, 'fr') || contains(env.EVENT_ISSUE_TITLE, 'enhancement') || contains(env.EVENT_ISSUE_TITLE, 'en') || contains(env.EVENT_ISSUE_TITLE, 'request') || contains(env.EVENT_ISSUE_TITLE, 'feature') }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            enhancement
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ contains(env.EVENT_ISSUE_TITLE, 'bug')}}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            bug
+

@@ -2,6 +2,12 @@ name: Deploy to Pages
 
 on:
   workflow_call:
+    inputs: 
+      GENERATE_GRAPH: 
+        description: 'Generate graph'
+        required: false
+        default: false
+        type: boolean
     secrets:
         VERCEL_TOKEN:
           required: false
@@ -24,8 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs: 
       WORKFLOW_TYPE: ${{ steps.check-env.outputs.WORKFLOW_TYPE }}
-      GENERATE_GRAPH: ${{ steps.check-env.outputs.GENERATE_GRAPH }}
       ACTIONS_REQUIREMENTS: ${{ steps.check-env.outputs.ACTIONS_REQUIREMENTS }}
+      RUN_GRAPH: ${{ steps.check-env.outputs.RUN_GRAPH }}
     steps:
       - uses: actions/checkout@v3
       - name: Get .env file
@@ -37,14 +43,28 @@ jobs:
         id: check-env
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
-          echo "GENERATE_GRAPH=${{ env.GENERATE_GRAPH }}" >> $GITHUB_OUTPUT
-          echo "ACTIONS_REQUIREMENTS=${{ env.ACTIONS_REQUIREMENTS }}" >> $GITHUB_OUTPUT
+          if [ ${{ env.WORKFLOW_TYPE}} != 'gh-pages' ]; then
+            if [ -f "requirements_actions.txt" ]; then
+              echo "ACTIONS_REQUIREMENTS=true" >> $GITHUB_OUTPUT
+              $ACTION_REQUIREMENTS = 'true'
+            else
+              echo "ACTIONS_REQUIREMENTS=false" >> $GITHUB_OUTPUT
+              $ACTION_REQUIREMENTS = 'false'
+            fi
+          else
+            echo "ACTIONS_REQUIREMENTS=false" >> $GITHUB_OUTPUT
+            $ACTION_REQUIREMENTS = 'false'
+          fi
+          if [${{ inputs.GENERATE_GRAPH }} && $ACTIONS_REQUIREMENTS == 'true' ]; then
+            echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT
+          else
+            echo "RUN_GRAPH=false" >> $GITHUB_OUTPUT
+          fi
           echo "ACT (LOCAL RUN) = ${{ env.ACT }}"
-
   generate_graph:
     needs: check-env
     runs-on: ubuntu-latest
-    if: ${{ needs.check-env.outputs.ACTIONS_REQUIREMENTS == 'true' && needs.check-env.outputs.GENERATE_GRAPH == 'true' }}
+    if: ${{ needs.check-env.outputs.RUN_GRAPH == 'true' }}
     steps:
       - uses: actions/checkout@v3
         with:

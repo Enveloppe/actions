@@ -29,12 +29,15 @@ jobs:
         id: version
         run: |
           if [ ! -f version.txt ]; then
-            echo "0.0.0" > version.txt
+            mv update.txt version.txt
             echo "update=true" > $GITHUB_OUTPUT
           elif [ "$(cat version.txt)" < "$(cat update.txt)" ]; then
             echo "update=true" > $GITHUB_OUTPUT
+            rm version.txt
+            mv update.txt version.txt
           else
             echo "update=false" > $GITHUB_OUTPUT
+            rm update.txt
           fi
   update-repo:
     runs-on: ubuntu-latest

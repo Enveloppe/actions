@@ -1,31 +1,55 @@
 name: Get lastest release from template
 on:
   workflow_call:
+    inputs: 
+      AUTO_MERGE:
+        type: boolean
+        description: 'Auto merge PR'
+        required: true
+        default: false
     secrets:
       GH_TOKEN:
         required: true
 jobs:
-  update:
+  get-env:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.update }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get .env file
-        uses: xom9ikk/dotenv@v2.2.0
+      - name: get template version
+        uses: robinraju/release-downloader@main
         with:
-          path: .github/
-          load-mode: skip
-      
+          latest: true
+          repository: "ObsidianPublisher/sync_template"
+          fileName: "version.txt"
+          out-file-path: "update.txt"
+      - name: compare version.txt and update.txt
+        id: version
+        run: |
+          if [ ! -f version.txt ]; then
+            echo "0.0.0" > version.txt
+            echo "update=true" > $GITHUB_OUTPUT
+          elif [ "$(cat version.txt)" < "$(cat update.txt)" ]; then
+            echo "update=true" > $GITHUB_OUTPUT
+          else
+            echo "update=false" > $GITHUB_OUTPUT
+          fi
+  update-repo:
+    runs-on: ubuntu-latest
+    needs: get-env
+    if: ${{ needs.get-env.outputs.update == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Get release from template
         uses: robinraju/release-downloader@main
         with:
           latest: true
           fileName: "release.zip"
           repository: "ObsidianPublisher/sync_template"
-      - name: Unzip changed files
-        run: |
-          unzip -o release.zip
-          rm release.zip
+          extract: true
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
@@ -43,7 +67,7 @@ jobs:
           branch: update_repo
           delete-branch: true
       - name: AutoMerging 
-        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && env.AUTO_MERGE == 'true' }}
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}
         uses: peter-evans/enable-pull-request-automerge@main
         with:
           token: ${{ secrets.GH_TOKEN }}

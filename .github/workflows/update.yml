@@ -31,7 +31,7 @@ jobs:
           if [ ! -f version.txt ]; then
             mv update.txt version.txt
             echo "update=true" > $GITHUB_OUTPUT
-          elif [ "$(cat version.txt)" < "$(cat update.txt)" ]; then
+          elif [[ "$(cat version.txt)" < "$(cat update.txt)" ]]; then
             echo "update=true" > $GITHUB_OUTPUT
             rm version.txt
             mv update.txt version.txt

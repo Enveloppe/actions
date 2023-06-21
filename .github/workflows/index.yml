@@ -100,11 +100,11 @@ jobs:
             parent='--parent "${{inputs.path}}"'
             echo $parent
           fi
-          echo "::set-output name=dry_run::$dry_run"
-          echo "::set-output name=toc_hide::$toc_hide"
-          echo "::set-output name=nav_hide::$nav_hide"
-          echo "::set-output name=description::$description"
-          echo "::set-output name=parent::$parent"
+          echo "dry_run=$dry_run" >> $GITHUB_OUTPUT
+          echo "toc_hide=$toc_hide" >> $GITHUB_OUTPUT
+          echo "nav_hide=$nav_hide" >> $GITHUB_OUTPUT
+          echo "description=$description" >> $GITHUB_OUTPUT
+          echo "parent=$parent" >> $GITHUB_OUTPUT
       - name: Creating index
         run: |
           echo "🐍 Creating category"

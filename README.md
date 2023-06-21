@@ -12,7 +12,7 @@ WORKFLOW_TYPE='netlify'
 
 You can see all available options in the [template](https://github.com/ObsidianPublisher/actions/tree/main/template) folder.
 
-> **Warning**
+> **Warning**  
 > Don't download the `.github/workflows` folder. You need to use the file in the `template` folder.
 
 # Deploy
@@ -88,7 +88,7 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
   - **Hide the navigation panel** in the index file.
   - Perform a **dry-run**: It will only show the result of the operation, but will not create the folder and the index file.
 
-> **Warning**
+> **Warning**  
 > The workflows won't activate the other actions, so you need to run them manually if you need.
 
 | Key             | Context | Type    | Required | Description                                          | Default                                        |

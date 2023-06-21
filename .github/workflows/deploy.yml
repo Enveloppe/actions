@@ -43,15 +43,16 @@ jobs:
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
           echo "WORKFLOW_TYPE = ${{ env.WORKFLOW_TYPE }}"
-          ACTION_REQUIREMENTS='false'
+          ACTION_REQUIREMENTS=false
           if [ ${{ env.WORKFLOW_TYPE}} != 'gh-pages' ]; then
             if [ -f "requirements_actions.txt" ]; then
-              ACTION_REQUIREMENTS='true'
+              ACTION_REQUIREMENTS=true
+              echo "ACTION_REQUIREMENTS = true"
             fi
           fi
-          GENERATE_GRAPH=${{ github.event.inputs.GENERATE_GRAPH || 'false' }}
+          GENERATE_GRAPH=${{ github.event.inputs.GENERATE_GRAPH || 'false'}}
           echo $GENERATE_GRAPH
-          if [[ ${{inputs.GENERATE_GRAPH}} == $ACTION_REQUIREMENTS ]]; then
+          if [[ $GENERATE_GRAPH == $ACTION_REQUIREMENTS ]]; then
             echo "GRAPH = true"
             echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT
           else

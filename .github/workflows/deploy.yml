@@ -42,6 +42,7 @@ jobs:
         id: check-env
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
+          echo "WORKFLOW_TYPE = ${{ env.WORKFLOW_TYPE }}"
           ACTION_REQUIREMENTS='false'
           if [ ${{ env.WORKFLOW_TYPE}} != 'gh-pages' ]; then
             if [ -f "requirements_actions.txt" ]; then
@@ -49,8 +50,10 @@ jobs:
             fi
           fi
           if [[ ${{inputs.GENERATE_GRAPH}} == $ACTION_REQUIREMENTS ]]; then
+            echo "GRAPH = true"
             echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT
           else
+            echo "GRAPH = false"
             echo "RUN_GRAPH=false" >> $GITHUB_OUTPUT
           fi
           echo "ACT (LOCAL RUN) = ${{ env.ACT }}"

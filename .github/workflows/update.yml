@@ -23,8 +23,7 @@ jobs:
         with:
           latest: true
           repository: "ObsidianPublisher/sync_template"
-          fileName: "version.txt"
-          out-file-path: "update.txt"
+          fileName: "update.txt"
       - name: compare version.txt and update.txt
         id: version
         run: |

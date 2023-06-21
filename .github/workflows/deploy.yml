@@ -47,19 +47,18 @@ jobs:
           if [ ${{ env.WORKFLOW_TYPE}} != 'gh-pages' ]; then
             if [ -f "requirements_actions.txt" ]; then
               ACTION_REQUIREMENTS=true
-              echo "ACTION_REQUIREMENTS = true"
             fi
           fi
           GENERATE_GRAPH=${{ github.event.inputs.GENERATE_GRAPH || 'false'}}
-          echo $GENERATE_GRAPH
+          echo "ACTION_REQUIREMENTS = $ACTION_REQUIREMENTS"
+          echo "GENERATE_GRAPH = $GENERATE_GRAPH"
           if [[ $GENERATE_GRAPH == 'true' && $ACTION_REQUIREMENTS == 'true' ]]; then
-            echo "GRAPH = true"
             echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT
           else
-            echo "GRAPH = false"
             echo "RUN_GRAPH=false" >> $GITHUB_OUTPUT
           fi
           echo "ACT (LOCAL RUN) = ${{ env.ACT }}"
+          echo "RUN THE GRAPH GENERATOR = $RUN_GRAPH"
   generate_graph:
     needs: check-env
     runs-on: ubuntu-latest

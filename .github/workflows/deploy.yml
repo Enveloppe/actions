@@ -42,13 +42,13 @@ jobs:
         id: check-env
         run: |
           echo "WORKFLOW_TYPE=${{ env.WORKFLOW_TYPE }}" >> $GITHUB_OUTPUT
-          $ACTION_REQUIREMENTS = 'false'
+          ACTION_REQUIREMENTS='false'
           if [ ${{ env.WORKFLOW_TYPE}} != 'gh-pages' ]; then
             if [ -f "requirements_actions.txt" ]; then
-              $ACTION_REQUIREMENTS = 'true'
+              ACTION_REQUIREMENTS='true'
             fi
           fi
-          if [${{ inputs.GENERATE_GRAPH }} && $ACTIONS_REQUIREMENTS == 'true' ]; then
+          if [ ${{ inputs.GENERATE_GRAPH }} && $ACTIONS_REQUIREMENTS == 'true' ]; then
             echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT
           else
             echo "RUN_GRAPH=false" >> $GITHUB_OUTPUT

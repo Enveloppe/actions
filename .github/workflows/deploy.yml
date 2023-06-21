@@ -49,6 +49,8 @@ jobs:
               ACTION_REQUIREMENTS='true'
             fi
           fi
+          GENERATE_GRAPH=${{ github.event.inputs.GENERATE_GRAPH || 'false' }}
+          echo $GENERATE_GRAPH
           if [[ ${{inputs.GENERATE_GRAPH}} == $ACTION_REQUIREMENTS ]]; then
             echo "GRAPH = true"
             echo "RUN_GRAPH=true" >> $GITHUB_OUTPUT

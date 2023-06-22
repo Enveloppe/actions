@@ -13,6 +13,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           reviewers: |
-              ${{ github.repository_owner}}
-          assignees: ${{ github.repository_owner}}
+              Lisandra-dev
+          assignees: Lisandra-dev
           skipKeywords: wip, draft

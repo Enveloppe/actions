@@ -7,6 +7,11 @@ on:
         description: 'Auto merge PR'
         required: true
         default: false
+      EXCLUDED-FILES:
+        type: string
+        description: "Path to file that mustn't be updated. Separate multiple files by a space."
+        required: false
+        default: ''
     secrets:
       GH_TOKEN:
         required: true
@@ -53,7 +58,13 @@ jobs:
           repository: "ObsidianPublisher/sync_template"
           extract: true
       - name: Unzip release
-        run: unzip release.zip
+        if: ${{ inputs.EXCLUDED-FILES != '' }}
+        run: |
+          zip -d release.zip ${{inputs.EXCLUDED-FILES}}
+      - name: Unzip release
+        run: |
+          unzip release.zip
+          rm release.zip
       - name: Commit changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

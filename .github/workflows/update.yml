@@ -52,6 +52,18 @@ jobs:
           fileName: "release.zip"
           repository: "ObsidianPublisher/sync_template"
           extract: true
+      - name: Unzip release
+        run: unzip release.zip
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update from template"
+      - name: diff changed
+        id: diff
+        run: |
+          echo "diff=$(git diff --name-only HEAD^ HEAD)" >> $GITHUB_OUTPUT
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
@@ -62,7 +74,7 @@ jobs:
           body: |
             files changed:
             ```
-            $(git diff --name-only HEAD^ HEAD)
+            ${{ steps.diff.outputs.diff }}
             ```
           labels: |
             update

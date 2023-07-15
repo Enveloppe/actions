@@ -74,7 +74,10 @@ jobs:
       - name: diff changed
         id: diff
         run: |
-          echo "diff=$(git diff --name-only HEAD^ HEAD)" >> $GITHUB_OUTPUT
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "DIFF<<$EOF" >> "$GITHUB_OUTPUT"
+          git diff >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4

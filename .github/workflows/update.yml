@@ -63,7 +63,7 @@ jobs:
           zip -d release.zip ${{inputs.EXCLUDED-FILES}}
       - name: Unzip release
         run: |
-          unzip release.zip
+          unzip -o release.zip
           rm release.zip
       - name: Commit changes
         run: |

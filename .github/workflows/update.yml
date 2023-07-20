@@ -67,6 +67,7 @@ jobs:
           zip -d release.zip ${{inputs.EXCLUDED-FILES}}
       - name: Unzip release
         run: |
+          zip -d release.zip overrides/partials/comments.html
           unzip -o release.zip
           rm release.zip
       - name: Push update 

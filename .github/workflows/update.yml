@@ -15,6 +15,10 @@ on:
     secrets:
       GH_TOKEN:
         required: true
+      AUTHOR_EMAIL:
+        required: false
+      AUTHOR_NAME:
+        required: false
 jobs:
   get-env:
     runs-on: ubuntu-latest
@@ -65,12 +69,13 @@ jobs:
         run: |
           unzip -o release.zip
           rm release.zip
-      - name: Commit changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "Update from template"
+      - name: Push update 
+        uses: actions-js/push@master
+        if: ${{ !env.ACT }}
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+          author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
       - name: diff changed
         id: diff
         run: |

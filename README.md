@@ -119,10 +119,13 @@ This action will update your template by replacing the old files with the new on
 This allows you to review the changes before they are applied to your template.
 The `AUTO_MERGE` inputs can be set to `true` to automatically merge the pull request.
 
-| Key          | Context | Type    | Required | Description                         | Default |
-| ------------ | ------- | ------- | -------- | ----------------------------------- | ------- |
-| `AUTO_MERGE` | inputs  | boolean | false    | Auto-merge the PR request to update | `false` |
-| `GH_PAT`     | secrets | string  | `true`   | Github Personal Access Token        |         |
+| Key              | Context | Type    | Required | Description                                               | Default                                        |
+| ---------------- | ------- | ------- | -------- | --------------------------------------------------------- | ---------------------------------------------- |
+| `AUTO_MERGE`     | inputs  | boolean | false    | Auto-merge the PR request to update                       | `false`                                        |
+| `EXCLUDED-FILES` | inputs  | string  | `false`  | List of file excluded, separate multiple files by a space | `""`                                           |
+| `GH_PAT`         | secrets | string  | `true`   | Github Personal Access Token                              |                                                |
+| `AUTHOR_NAME`    | secrets | string  | `false`  | Author name for signed commit                             | `github-actions[bot]`                          |
+| `AUTHOR_EMAIL`   | secrets | string  | `false`  | Author email for signed commit                            | `github-actions[bot]@users.noreply.github.com` |
 
 # Tips
 

@@ -38,7 +38,6 @@ jobs:
         run: |
           cat update.txt
           cat version.txt
-          "$(cat version.txt)" < "$(cat update.txt)"
           if [ ! -f version.txt ]; then
             mv update.txt version.txt
             echo "update=true" > $GITHUB_OUTPUT

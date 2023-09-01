@@ -1,0 +1,75 @@
+name: "[Mkdocs Publisher Template] Workflow Bug report"
+description: Fill a bug report for the mkdocs publisher template github actions
+title: "[BUG]: "
+labels: ["bug"]
+assignees:
+  - lisandra-dev
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: term
+    attributes:
+      label: Conditions
+      description: "Thanks to check if your issue is relative to the repository. Any non relative or duplicate issue will be closed."
+      options:
+        - label: "My issue is not a question relative to [Material Mkdocs](https://squidfunk.github.io/mkdocs-material/) nor [Mkdocs](https://www.mkdocs.org/) (*[You can open a discussion to get more help!](https://github.com/squidfunk/mkdocs-material/discussions)*)"
+          required: true
+        - label: "I checked the issue to prevent duplicate"
+          required: true
+        - label: "I checked my configurations files and the documentation"
+          required: true
+        - label: "My issue doesn't concern the Template or the Obsidian Plugin. If you need, open a [issue](https://github.com/ObsidianPublisher/obsidian-github-publisher/issue) on the relative repository."
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow
+      description: Select the workflow that have the bug. Open an issue pour each workflow if you need
+      multiple: false
+      options:
+        - "deploy.yml: Publish"  
+        - "index.yml: Index Creation"
+        - "maintenance.yml: Repository maintenance"
+        - "update.yml: Get latest release from template"
+  - type: input
+    id: links
+    attributes:
+      label: workflow logs
+      description: Link to your workflow logs (if your repository is public)
+      placeholder: https://github.com/yourusername/yourrepo/actions/runs/123458545
+  - type: textarea
+    id: error
+    attributes:
+      label: Error
+      description: Paste the error you got here (the logs will be already in code syntax, no need to add ```)
+      render: bash session
+    validations:
+      required: true
+  - type: textarea
+    id: template
+    attributes:
+      label: Workflow configuration
+      description: Please, paste the workflow here
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What happened and how to reproduce the bug?"
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here. For example, the steps that crash.
+    validations:
+      required: false

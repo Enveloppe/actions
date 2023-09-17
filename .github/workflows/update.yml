@@ -71,7 +71,7 @@ jobs:
           latest: true
           fileName: "release.zip"
           repository: "ObsidianPublisher/sync_template"
-          extract: true
+          extract: false
       - name: Remove excluded files & comments
         if: ${{ inputs.EXCLUDED-FILES != '' }}
         run: |

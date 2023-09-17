@@ -81,7 +81,7 @@ jobs:
         run: |
           unzip -o release.zip
           rm release.zip
-          echo "${{ needs.get-env.outputs.update }}" > version.txt
+          echo "${{ needs.get-env.outputs.updateNumber }}" > version.txt
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

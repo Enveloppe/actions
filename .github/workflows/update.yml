@@ -84,8 +84,6 @@ jobs:
       - name: list changed files
         id: changed
         uses: tj-actions/changed-files@main
-        with:
-          since_last_remote_commit: true
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

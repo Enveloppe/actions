@@ -12,7 +12,7 @@ WORKFLOW_TYPE='netlify'
 
 You can see all available options in the [template](https://github.com/ObsidianPublisher/actions/tree/main/template) folder.
 
-> **Warning**  
+> **Warning**
 > Don't download the `.github/workflows` folder. You need to use the file in the `template` folder.
 
 # Deploy
@@ -50,7 +50,7 @@ See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_wor
 
 You don't need to define anything.
 
-> **Note**  
+> **Note**
 > Generate graph will be always false for github pages.
 
 # Maintenance
@@ -59,7 +59,7 @@ You don't need to define anything.
 
 This workflows will, every 24 hours or on demand:
 - Update the requirements and the cache
-- Clean unused image if `CLEAN` is set to `true` 
+- Clean unused image if `CLEAN` is set to `true`
 
 You can also set `DRY_RUN` to `true` to only print the command that will be executed
 
@@ -88,7 +88,7 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
   - **Hide the navigation panel** in the index file.
   - Perform a **dry-run**: It will only show the result of the operation, but will not create the folder and the index file.
 
-> **Warning**  
+> **Warning**
 > The workflows won't activate the other actions, so you need to run them manually if you need.
 
 | Key             | Context | Type    | Required | Description                                          | Default                                        |
@@ -113,7 +113,7 @@ The action needs a `GH_TOKEN` secret in your repository settings. This token sho
 
 This action will update your template by replacing the old files with the new ones. After the upgrade, the action will create a pull request in your repository, which you can review and either accept or reject.
 
-> **Note**  
+> **Note**
 > A file named `version.txt` can be added to your template repository. This file contains the version number of the template, and will be used to check if the template needs to be updated.
 
 This allows you to review the changes before they are applied to your template.
@@ -121,8 +121,9 @@ The `AUTO_MERGE` inputs can be set to `true` to automatically merge the pull req
 
 | Key              | Context | Type    | Required | Description                                               | Default                                        |
 | ---------------- | ------- | ------- | -------- | --------------------------------------------------------- | ---------------------------------------------- |
-| `AUTO_MERGE`     | inputs  | boolean | false    | Auto-merge the PR request to update                       | `false`                                        |
+| `AUTO_MERGE`     | inputs  | boolean | `false`  | Auto-merge the PR request to update                       | `false`                                        |
 | `EXCLUDED-FILES` | inputs  | string  | `false`  | List of file excluded, separate multiple files by a space | `""`                                           |
+| `BASE_BRANCH`    | inputs  | string  | `false`  | The branch where the PR will be merged/made               | `"main"`                                       |
 | `GH_PAT`         | secrets | string  | `true`   | Github Personal Access Token                              |                                                |
 | `AUTHOR_NAME`    | secrets | string  | `false`  | Author name for signed commit                             | `github-actions[bot]`                          |
 | `AUTHOR_EMAIL`   | secrets | string  | `false`  | Author email for signed commit                            | `github-actions[bot]@users.noreply.github.com` |

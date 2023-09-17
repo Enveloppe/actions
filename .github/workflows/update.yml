@@ -73,10 +73,14 @@ jobs:
         run: |
           unzip -o release.zip
           rm release.zip
+      - name: Create temp branch
+        run: |
+          git checkout -b update_repo
       - name: Push update
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
+          branch: update_repo
           github_token: ${{ secrets.GH_TOKEN }}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
@@ -91,6 +95,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
+
           token: ${{ secrets.GH_TOKEN }}
           commit-message: Update from template
           title: "[BUMP] Update from template"

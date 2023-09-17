@@ -85,7 +85,12 @@ jobs:
           unzip -o release.zip
           rm release.zip
           echo "${{ needs.get-env.outputs.updateNumber }}" > version.txt
-
+      - name: Commit changes
+        run: |
+          git config --local user.email "${{ secrets.AUTHOR_EMAIL || '41898282+github-actions[bot]@users.noreply.github.com' }}"
+          git config --local user.name "${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}"
+          git add .
+          git commit -m "Update from template"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

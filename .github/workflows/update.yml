@@ -97,7 +97,6 @@ jobs:
             ```
           labels: |
             update
-          branch: update_repo
           delete-branch: true
       - name: AutoMerging
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}

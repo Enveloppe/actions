@@ -110,6 +110,8 @@ jobs:
       - name: AutoMerging
         id: automerge
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
           echo "Pull Request merged"

@@ -86,7 +86,10 @@ jobs:
           rm release.zip
           echo "${{ needs.get-env.outputs.updateNumber }}" > version.txt
       - name: check files created by the zip
-        run: ls -lR
+        run: |
+          echo "Files in the repo" >> $GITHUB_STEP_SUMMARY
+          echo "------------------------" >> $GITHUB_STEP_SUMMARY
+          ls -lR >> $GITHUB_STEP_SUMMARY
       - name: Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

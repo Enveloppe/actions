@@ -108,9 +108,16 @@ jobs:
           base: ${{ inputs.BASE_BRANCH || 'main' }}
           delete-branch: true
       - name: AutoMerging
+        id: automerge
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}
-        uses: peter-evans/enable-pull-request-automerge@main
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
+          echo "Pull Request merged"
+          echo "done=true" >> $GITHUB_OUTPUT
+      - name: Delete update branch if possible
+        if: ${{ inputs.AUTO_MERGE && steps.automerge.outputs.done == 'true' }}
+        run: |
+          # verify if the branch exists
+          if [[ $(git ls-remote --heads origin update | wc -l) -eq 1 ]]; then
+            git push origin --delete update
+          fi

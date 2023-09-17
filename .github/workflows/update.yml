@@ -1,7 +1,7 @@
 name: Get lastest release from template
 on:
   workflow_call:
-    inputs: 
+    inputs:
       AUTO_MERGE:
         type: boolean
         description: 'Auto merge PR'
@@ -61,16 +61,19 @@ jobs:
           fileName: "release.zip"
           repository: "ObsidianPublisher/sync_template"
           extract: true
-      - name: Unzip release
+      - name: Remove excluded files & comments
         if: ${{ inputs.EXCLUDED-FILES != '' }}
         run: |
-          zip -d release.zip ${{inputs.EXCLUDED-FILES}}
-      - name: Unzip release
+          zip -d release.zip ${{inputs.EXCLUDED-FILES}} overrides/partials/comments.html
+      - name: Remove comments only (no excluded files found)
+        if: ${{ !inputs.EXCLUDED-FILES }}
         run: |
           zip -d release.zip overrides/partials/comments.html
+      - name: Unzip release
+        run: |
           unzip -o release.zip
           rm release.zip
-      - name: Push update 
+      - name: Push update
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
@@ -100,7 +103,7 @@ jobs:
             update
           branch: update_repo
           delete-branch: true
-      - name: AutoMerging 
+      - name: AutoMerging
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}
         uses: peter-evans/enable-pull-request-automerge@main
         with:

@@ -82,16 +82,25 @@ jobs:
           zip -d release.zip overrides/partials/comments.html
       - name: Unzip release and update version.txt
         run: |
-          unzip -o release.zip
+          unzip -o release.zip -d release
           rm release.zip
+          cd release
           echo "${{ needs.get-env.outputs.updateNumber }}" > version.txt
-      - name: Commit changes
+      - name: Delete unwanted files & comments
+        if: ${{ inputs.EXCLUDED-FILES != '' }}
         run: |
-          git config --local user.email "${{ secrets.AUTHOR_EMAIL || '41898282+github-actions[bot]@users.noreply.github.com' }}"
-          git config --local user.name "${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}"
-          git add .
-          git commit -m "Update from template"
-      - name: Create Pull Request
+          cd release
+          rm -rf ${{inputs.EXCLUDED-FILES}} overrides/partials/comments.html
+      - name: Delete comments only (no excluded files found)
+        if: ${{ !inputs.EXCLUDED-FILES }}
+        run: |
+          cd release
+          rm -rf overrides/partials/comments.html
+      - name: Overwrite files
+        run: |
+          cp -r release/* .
+          rm -rf release
+      - name: Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:

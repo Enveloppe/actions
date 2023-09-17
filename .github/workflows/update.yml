@@ -80,9 +80,6 @@ jobs:
         run: |
           unzip -o release.zip
           rm release.zip
-      - name: Create temp branch
-        run: |
-          git checkout -b update_repo
       - name: diff changed
         id: diff
         run: |

@@ -43,12 +43,12 @@ jobs:
       - name: compare version.txt and update.txt
         id: version
         run: |
-          echo "versionNumber=$(cat version.txt)" > $GITHUB_OUTPUT
           echo "updateNumber=$(cat update.txt)" > $GITHUB_OUTPUT
           if [ ! -f version.txt ]; then
             echo "update=true" > $GITHUB_OUTPUT
           elif [[ "$(cat version.txt)" < "$(cat update.txt)" ]]; then
             echo "update=true" > $GITHUB_OUTPUT
+            echo "versionNumber=$(cat version.txt)" > $GITHUB_OUTPUT
           else
             echo "update=false" > $GITHUB_OUTPUT
           fi

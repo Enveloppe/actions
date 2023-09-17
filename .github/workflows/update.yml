@@ -61,6 +61,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.BASE_BRANCH || 'main' }}
+          fetch-depth: 0
       - name: Get release from template
         uses: robinraju/release-downloader@main
         with:
@@ -80,13 +81,11 @@ jobs:
         run: |
           unzip -o release.zip
           rm release.zip
-      - name: diff changed
-        id: diff
-        run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "DIFF<<$EOF" >> "$GITHUB_OUTPUT"
-          git diff >> "$GITHUB_OUTPUT"
-          echo "$EOF" >> "$GITHUB_OUTPUT"
+      - name: list changed files
+        id: changed
+        uses: tj-actions/changed-files@main
+        with:
+          since_last_remote_commit: true
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -95,9 +94,9 @@ jobs:
           commit-message: Update from template
           title: "[BUMP] Update from template"
           body: |
-            files changed:
+            ${{ steps.changed.outputs.all_changed_files_count}} files changed:
             ```
-            ${{ steps.diff.outputs.DIFF }}
+            ${{ steps.changed.outputs.all_changed_files }}
             ```
           labels: |
             update

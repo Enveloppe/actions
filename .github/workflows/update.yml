@@ -85,10 +85,7 @@ jobs:
           unzip -o release.zip
           rm release.zip
           echo "${{ needs.get-env.outputs.updateNumber }}" > version.txt
-      - name: Remove unwanted files
-        if: ${{ inputs.EXCLUDED-FILES != '' }}
-        run: |
-          rm -rf ${{inputs.EXCLUDED-FILES}} overrides/partials/comments.html
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

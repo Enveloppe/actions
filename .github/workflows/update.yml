@@ -12,6 +12,11 @@ on:
         description: "Path to file that mustn't be updated. Separate multiple files by a space."
         required: false
         default: ''
+      BASE_BRANCH:
+        type: string
+        description: 'Base branch to create PR'
+        required: false
+        default: 'main'
     secrets:
       GH_TOKEN:
         required: true
@@ -97,6 +102,8 @@ jobs:
             ```
           labels: |
             update
+          branch: update_repo
+          base: ${{ inputs.BASE_BRANCH || 'main' }}
           delete-branch: true
       - name: AutoMerging
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' && inputs.AUTO_MERGE }}

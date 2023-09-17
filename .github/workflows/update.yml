@@ -46,14 +46,15 @@ jobs:
           echo "updateNumber=$(cat update.txt)" >> $GITHUB_OUTPUT
           if [ ! -f version.txt ]; then
             echo "update=true" > $GITHUB_OUTPUT
+            cat update.txt
           elif [[ "$(cat version.txt)" < "$(cat update.txt)" ]]; then
             echo "update=true" >> $GITHUB_OUTPUT
             echo "versionNumber=$(cat version.txt)" >> $GITHUB_OUTPUT
+            cat update.txt
+            cat version.txt
           else
             echo "update=false" >> $GITHUB_OUTPUT
           fi
-          cat version.txt
-          cat update.txt
 
   update-repo:
     runs-on: ubuntu-latest

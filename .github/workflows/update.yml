@@ -84,6 +84,9 @@ jobs:
       - name: list changed files
         id: changed
         uses: tj-actions/changed-files@main
+      - name: echo changed files
+        run: |
+          echo "${{ steps.changed.outputs.all_changed_files }}"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

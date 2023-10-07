@@ -58,7 +58,7 @@ jobs:
         if: inputs.CLEAN && inputs.DRY_RUN || !env.ACT 
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
           branch: ${{ inputs.BRANCH }}
@@ -87,7 +87,7 @@ jobs:
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
           branch: ${{ inputs.BRANCH }}
@@ -124,7 +124,7 @@ jobs:
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
           branch: ${{ inputs.BRANCH }}

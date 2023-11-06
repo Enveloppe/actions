@@ -15,7 +15,7 @@ on:
     secrets:
       GH_PAT:
         required: true
-      author_email: 
+      author_email:
         required: false
         description: "The author email"
       author_name:
@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: 3.11
           cache: pip
-          
+
       - name: Get .env file
         uses: xom9ikk/dotenv@v2.2.0
         with:
@@ -47,10 +47,10 @@ jobs:
         if: inputs.CLEAN
         run: |
           echo "CLEAN UNUSED IMAGES"
-          pip install pyyaml mkdocs mkdocs-material
+          pip install pyyaml
           python find_unused_media.py
       - name: Push
-        if: inputs.CLEAN && inputs.DRY_RUN || !env.ACT 
+        if: inputs.CLEAN && inputs.DRY_RUN || !env.ACT
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GH_PAT }}
@@ -60,7 +60,7 @@ jobs:
     needs: unused-images
     runs-on: ubuntu-latest
     if: needs.unused-images.outputs.workflow-type != 'gh-pages'
-    steps: 
+    steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         id: setup
@@ -102,7 +102,7 @@ jobs:
     needs: unused-images
     runs-on: ubuntu-latest
     if: needs.unused-images.outputs.workflow-type == 'gh-pages'
-    steps: 
+    steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         id: setup

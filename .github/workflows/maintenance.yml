@@ -52,7 +52,7 @@ jobs:
         if: inputs.CLEAN
         run: |
           echo "CLEAN UNUSED IMAGES"
-          pip install pyyaml mkdocs mkdocs-material
+          pip install pyyaml mkdocs mkdocs-material mermaid2
           python find_unused_media.py
       - name: Push
         if: inputs.CLEAN && inputs.DRY_RUN || !env.ACT 

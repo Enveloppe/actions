@@ -12,6 +12,11 @@ on:
         required: false
         default: false
         type: boolean
+      BRANCH:
+        type: string
+        description: 'Branch to push changes to'
+        required: false
+        default: 'main'
     secrets:
       GH_PAT:
         required: true
@@ -53,9 +58,10 @@ jobs:
         if: inputs.CLEAN && inputs.DRY_RUN || !env.ACT
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+          branch: ${{ inputs.BRANCH }}
   update-other:
     needs: unused-images
     runs-on: ubuntu-latest
@@ -81,9 +87,10 @@ jobs:
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+          branch: ${{ inputs.BRANCH }}
       - name: Check cache
         if: env.REQUIREMENTSACTIONS == 'true'
         id: cache
@@ -117,9 +124,10 @@ jobs:
         uses: actions-js/push@master
         if: ${{ !env.ACT }}
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN}}
           author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
           author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+          branch: ${{ inputs.BRANCH }}
       - name: Check cache
         id: cache
         uses: actions/cache@v3

@@ -12,12 +12,36 @@ WORKFLOW_TYPE='netlify'
 
 You can see all available options in the [template](https://github.com/ObsidianPublisher/actions/tree/main/template) folder.
 
-> **Warning**
+> [!WARNING]
 > Don't download the `.github/workflows` folder. You need to use the file in the `template` folder.
+> Don't forget to update the file if needed (adding secrets...)
+
+# Secrets
+
+Some actions needs a  `GH_PAT` secret in your repository settings. This token should have the `repo` and `workflows` scope. You can create a token [here](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow).
+
+[See here to know how to register it as a secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+
+If you set security on your main branch, you need to add two more secrets:
+- `AUTHOR_NAME`
+- `AUTHOR_EMAIL`
+
+You need to update the workflow like this:
+```yaml
+# it is an example, please, replace the [...] with the following information.
+# Keeps everything as before, just add the two secrets at the end of the file, under `secrets`.
+[...]
+jobs:
+  [...]
+    secrets:
+      [...]
+      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+```
 
 # Deploy
 
-See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_workflow/) for more information.
+For advanced workflow for graph generation, see [documentation](https://obsidian-publisher.netlify.app/template/advanced_workflow/).
 
 | Key                 | Context | Type    | Required | Description                                        | Default                                        |
 | ------------------- | ------- | ------- | -------- | -------------------------------------------------- | ---------------------------------------------- |
@@ -50,7 +74,7 @@ See [documentation](https://obsidian-publisher.netlify.app/Advanced/advanced_wor
 
 You don't need to define anything.
 
-> **Note**
+> [!NOTE]
 > Generate graph will be always false for github pages.
 
 # Maintenance
@@ -71,6 +95,7 @@ You can also set `DRY_RUN` to `true` to only print the command that will be exec
 | `author_name`  | secrets | string  | `false`  | Author name for signed commit                | `github-actions[bot]`                          |
 | `author_email` | secrets | string  | `false`  | Author email for signed commit               | `github-actions[bot]@users.noreply.github.com` |
 
+
 ## Index (`index.yml`)
 
 It Allows you to quickly create a new "category" / blog listing in your repository by creating a new specified folder with the name of the category. To create a new category, follow these steps:
@@ -88,7 +113,7 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
   - **Hide the navigation panel** in the index file.
   - Perform a **dry-run**: It will only show the result of the operation, but will not create the folder and the index file.
 
-> **Warning**
+> [!WARNING]
 > The workflows won't activate the other actions, so you need to run them manually if you need.
 
 | Key             | Context | Type    | Required | Description                                          | Default                                        |
@@ -113,7 +138,7 @@ The action needs a `GH_TOKEN` secret in your repository settings. This token sho
 
 This action will update your template by replacing the old files with the new ones. After the upgrade, the action will create a pull request in your repository, which you can review and either accept or reject.
 
-> **Note**
+> [!NOTE]
 > A file named `version.txt` can be added to your template repository. This file contains the version number of the template, and will be used to check if the template needs to be updated.
 
 This allows you to review the changes before they are applied to your template.

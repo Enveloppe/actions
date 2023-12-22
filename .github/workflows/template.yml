@@ -116,6 +116,7 @@ jobs:
         if: ${{ !env.ACT}}
         run: |
           rm -f generate_template.py
+          rm -f .github/workflows/template.yml
       - name: Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5

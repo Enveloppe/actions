@@ -46,7 +46,7 @@ For advanced workflow for graph generation, see [documentation](https://obsidian
 | Key                 | Context | Type    | Required | Description                                        | Default                                        |
 | ------------------- | ------- | ------- | -------- | -------------------------------------------------- | ---------------------------------------------- |
 | `GENERATE_GRAPH`    | inputs  | boolean | `false`  | Allow to generate graph for netlify/vercel project | `false`                                        |
-| `GH_TOKEN`            | secrets | string  | `true`   | Github Personal Access Token                       |                                                |
+| `GH_PAT`            | secrets | string  | `true`   | Github Personal Access Token                       |                                                |
 | `VERCEL_TOKEN`      | secrets | string  | `false`  | Vercel Token (only in vercel workflows)            |                                                |
 | `VERCEL_ORG_ID`     | secrets | string  | `false`  | Vercel Organization ID (only in vercel workflows)  |                                                |
 | `VERCEL_PROJECT_ID` | secrets | string  | `false`  | Vercel Project ID (only in vercel)                 |                                                |
@@ -91,7 +91,7 @@ You can also set `DRY_RUN` to `true` to only print the command that will be exec
 | -------------- | ------- | ------- | -------- | -------------------------------------------- | ---------------------------------------------- |
 | `DRY_RUN`      | inputs  | boolean | `false`  | Only print the command that will be executed | false                                          |
 | `CLEAN`        | inputs  | boolean | `false`  | Clean unused images                          | true                                           |
-| `GH_TOKEN`       | secrets | string  | `true`   | Github Personal Access Token                 |                                                |
+| `GH_PAT`       | secrets | string  | `true`   | Github Personal Access Token                 |                                                |
 | `author_name`  | secrets | string  | `false`  | Author name for signed commit                | `github-actions[bot]`                          |
 | `author_email` | secrets | string  | `false`  | Author email for signed commit               | `github-actions[bot]@users.noreply.github.com` |
 
@@ -118,7 +118,7 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
 
 | Key             | Context | Type    | Required | Description                                          | Default                                        |
 | --------------- | ------- | ------- | -------- | ---------------------------------------------------- | ---------------------------------------------- |
-| `GH_TOKEN`        | secrets | string  | `true`   | Github Personal Access Token                         |                                                |
+| `GH_PAT`        | secrets | string  | `true`   | Github Personal Access Token                         |                                                |
 | `author_name`   | secrets | string  | `false`  | Author name for signed commit                        | `github-actions[bot]`                          |
 | `author_email`  | secrets | string  | `false`  | Author email for signed commit                       | `github-actions[bot]@users.noreply.github.com` |
 | `category_name` | inputs  | string  | `true`   | The new folder name                                  |                                                |

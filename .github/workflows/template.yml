@@ -111,7 +111,6 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GH_TOKEN }}
           commit-message: Generating template
           title: "First commit -- Generate template"
           body: |

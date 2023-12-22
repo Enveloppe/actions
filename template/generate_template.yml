@@ -1,16 +1,7 @@
 name: Generate website
+
 on:
-  workflow_call:
-    secrets:
-      GH_PAT:
-        required: true
-        description: "Github personal access token"
-      AUTHOR_EMAIL:
-        required: false
-        description: "The author email"
-      AUTHOR_NAME:
-        required: false
-        description: "The author name"
+  workflow_dispatch:
     inputs:
       site_name:
         type: string
@@ -56,20 +47,21 @@ on:
         required: false
         default: false
         type: boolean
-  job:
-    run:
-      uses: "ObsidianPublisher/actions/.github/workflows/template.yml@main"
-      with:
-        site_name: ${{ inputs.site_name }}
-        site_url: ${{ inputs.site_url }}
-        site_description: ${{ inputs.site_description }}
-        site_author: ${{ inputs.site_author }}
-        language: ${{ inputs.language }}
-        auto_h1: ${{ inputs.auto_h1 }}
-        comments: ${{ inputs.comments }}
-        template_type: ${{ inputs.template_type }}
-        auto_merge: ${{ inputs.auto_merge }}
-      secrets:
-        GH_PAT: ${{ secrets.GITHUB_TOKEN}}
-        AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
-        AUTHOR_NAME: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+
+jobs:
+  run:
+    uses: "ObsidianPublisher/actions/.github/workflows/template.yml@main"
+    with:
+      site_name: ${{ inputs.site_name }}
+      site_url: ${{ inputs.site_url }}
+      site_description: ${{ inputs.site_description }}
+      site_author: ${{ inputs.site_author }}
+      language: ${{ inputs.language }}
+      auto_h1: ${{ inputs.auto_h1 }}
+      comments: ${{ inputs.comments }}
+      template_type: ${{ inputs.template_type }}
+      auto_merge: ${{ inputs.auto_merge }}
+    secrets:
+      GH_PAT: ${{ secrets.GITHUB_TOKEN}}
+      AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+      AUTHOR_NAME: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}

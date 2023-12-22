@@ -52,6 +52,7 @@ on:
       AUTHOR_NAME:
         required: false
         description: "The author name"
+permissions: write-all
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -129,6 +130,7 @@ jobs:
           branch: generate
           base: "main"
           delete-branch: true
+          token: ${{ secrets.GH_TOKEN }}
       - name: AutoMerging
         id: automerge
         if: ${{ inputs.AUTO_MERGE }}

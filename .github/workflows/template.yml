@@ -104,6 +104,14 @@ jobs:
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           python3 generate_template.py "${{github.event.inputs.template_type}}" "${{github.event.inputs.site_name}}" "${{github.event.inputs.site_url}}" "${{github.event.inputs.site_description}}" "${{github.event.inputs.site_author}}" "${{github.event.inputs.language}}" ${{ steps.args.outputs.auto_h1 }} ${{ steps.args.outputs.comments }} >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      - name: Update with pur
+        run: |
+          pip install pur
+          pur -r requirements.txt
+      - name: Update if requirements_actions.txt
+        if: github.event.inputs.template_type != 'gh_pages'
+        run: |
+          pur -r requirements_actions.txt
       - name: Delete scripts
         if: ${{ !env.ACT}}
         run: |

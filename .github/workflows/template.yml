@@ -12,39 +12,15 @@ on:
         required: false
         description: "The author name"
     inputs:
-    on:
-  workflow_dispatch:
-    inputs:
       template_type:
         description: "The template type"
         required: true
-        default: "gh_pages"
+        default: 'gh_pages'
         type: choice
         options:
           - gh_pages
           - netlify
           - vercel
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
-        type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
-
-jobs:
-  print-tag:
-    runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
-    steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
-
       site_name:
         type: string
         required: true
@@ -75,6 +51,7 @@ jobs:
         required: false
         description: "Enable comments"
         default: false
+
       auto_merge:
         description: "Automatically merge the pull request"
         required: false

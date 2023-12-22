@@ -1,0 +1,125 @@
+name: Generate website
+on:
+  workflow_call:
+    secrets:
+      GH_PAT:
+        required: true
+        description: "Github personal access token"
+      AUTHOR_EMAIL:
+        required: false
+        description: "The author email"
+      AUTHOR_NAME:
+        required: false
+        description: "The author name"
+    inputs:
+      site_name:
+        type: string
+        required: true
+        description: "The name of the site"
+      site_url:
+        type: string
+        required: true
+        description: "The url of the site"
+      site_description:
+        type: string
+        required: true
+        description: "The description of the site"
+      site_author:
+        type: string
+        required: true
+        description: "The author of the site"
+      language:
+        type: string
+        required: true
+        description: "The language of the site"
+      auto_h1:
+        type: boolean
+        required: false
+        description: "Automatically add h1 to pages"
+        default: false
+      comments:
+        type: boolean
+        required: false
+        description: "Enable comments"
+        default: false
+      template_type:
+        description: "The template type"
+        required: true
+        default: "gh_pages"
+        type: choice
+        options:
+          - "gh_pages"
+          - "netlify"
+          - "vercel"
+
+
+
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print github.event.inputs
+        run: |
+          echo "📫 Commands arguments" >> $GITHUB_STEP_SUMMARY
+          echo "- site_name: ${{ github.event.inputs.site_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_url: ${{ github.event.inputs.site_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_description: ${{ github.event.inputs.site_description }}" >> $GITHUB_STEP_SUMMARY
+          echo "- site_author: ${{ github.event.inputs.site_author }}" >> $GITHUB_STEP_SUMMARY
+          echo "- language: ${{ github.event.inputs.language }}" >> $GITHUB_STEP_SUMMARY
+          echo "language: ${{ github.event.inputs.language }}"
+          echo "- auto_h1: ${{ github.event.inputs.auto_h1 }}"
+          echo "- comments: ${{ github.event.inputs.comments }}"
+          echo "- template_type: ${{ github.event.inputs.template_type }}"
+          echo "- site_name: ${{ github.event.inputs.site_name }}"
+          echo "- site_url: ${{ github.event.inputs.site_url }}"
+          echo "- site_description: ${{ github.event.inputs.site_description }}"
+          echo "- site_author: ${{ github.event.inputs.site_author }}"
+          echo "ACT: ${{ env.ACT }}"
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install pydantic requests
+      - name: Format arguments
+        id: args
+        run:
+          |
+          auto_h1=''
+          comments=''
+          if [ "${{ github.event.inputs.auto_h1 }}" = "true" ]; then
+            auto_h1='--auto-h1'
+          fi
+          if [ "${{ github.event.inputs.comments }}" = "true" ]; then
+            comments='--comments'
+          fi
+          echo "auto_h1=$auto_h1" >> $GITHUB_OUTPUT
+          echo "comments=$comments" >> $GITHUB_OUTPUT
+          echo "- auto_h1: $auto_h1" >> $GITHUB_STEP_SUMMARY
+          echo "- comments: $comments" >> $GITHUB_STEP_SUMMARY
+      - name: Generate files
+        run: |
+          echo "📝 Generate files"
+          pwd
+          ls *.py
+          echo "📝 Generate files" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          python3 generate_template.py "${{github.event.inputs.template_type}}" "${{github.event.inputs.site_name}}" "${{github.event.inputs.site_url}}" "${{github.event.inputs.site_description}}" "${{github.event.inputs.site_author}}" "${{github.event.inputs.language}}" ${{ steps.args.outputs.auto_h1 }} ${{ steps.args.outputs.comments }} >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      - name: Delete scripts
+        if: ${{ !env.ACT}}
+        run: |
+          rm -f generate_template.py
+      - name: "Push"
+        if: ${{ !env.ACT}}
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          author_email: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
+          author_name: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}
+

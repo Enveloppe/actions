@@ -43,7 +43,7 @@ on:
         default: false
         type: boolean
     secrets:
-      GH_PAT:
+      GH_TOKEN:
         required: true
         description: "Github personal access token"
       AUTHOR_EMAIL:
@@ -111,7 +111,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_TOKEN }}
           commit-message: Generating template
           title: "First commit -- Generate template"
           body: |
@@ -134,7 +134,7 @@ jobs:
         id: automerge
         if: ${{ inputs.AUTO_MERGE }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
           echo "Pull Request merged"

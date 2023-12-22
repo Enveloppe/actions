@@ -1,26 +1,12 @@
 name: Generate website
 on:
   workflow_call:
-    secrets:
-      GH_PAT:
-        required: true
-        description: "Github personal access token"
-      AUTHOR_EMAIL:
-        required: false
-        description: "The author email"
-      AUTHOR_NAME:
-        required: false
-        description: "The author name"
     inputs:
       template_type:
         description: "The template type"
         required: true
         default: 'gh_pages'
-        type: choice
-        options:
-          - gh_pages
-          - netlify
-          - vercel
+        type: string
       site_name:
         type: string
         required: true
@@ -51,13 +37,21 @@ on:
         required: false
         description: "Enable comments"
         default: false
-
       auto_merge:
         description: "Automatically merge the pull request"
         required: false
         default: false
         type: boolean
-
+    secrets:
+      GH_PAT:
+        required: true
+        description: "Github personal access token"
+      AUTHOR_EMAIL:
+        required: false
+        description: "The author email"
+      AUTHOR_NAME:
+        required: false
+        description: "The author name"
 jobs:
   generate:
     runs-on: ubuntu-latest

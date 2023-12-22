@@ -66,6 +66,6 @@ jobs:
       template_type: ${{ inputs.template_type }}
       auto_merge: ${{ inputs.auto_merge }}
     secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+      GH_TOKEN: ${{ secrets.GH_TOKEN}}
       AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL || 'github-actions[bot]@users.noreply.github.com' }}
       AUTHOR_NAME: ${{ secrets.AUTHOR_NAME || 'github-actions[bot]' }}

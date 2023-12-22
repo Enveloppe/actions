@@ -18,7 +18,7 @@ You can see all available options in the [template](https://github.com/ObsidianP
 
 # Secrets
 
-Some actions needs a  `GH_PAT` secret in your repository settings. This token should have the `repo` and `workflows` scope. You can create a token [here](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow).
+Some actions needs a  `GH_TOKEN` secret in your repository settings. This token should have the `repo` and `workflows` scope. You can create a token [here](https://github.com/settings/tokens/new?description=PUBLISHER%20TEMPLATE&scopes=repo,workflow).
 
 [See here to know how to register it as a secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
@@ -46,7 +46,7 @@ For advanced workflow for graph generation, see [documentation](https://obsidian
 | Key                 | Context | Type    | Required | Description                                        | Default                                        |
 | ------------------- | ------- | ------- | -------- | -------------------------------------------------- | ---------------------------------------------- |
 | `GENERATE_GRAPH`    | inputs  | boolean | `false`  | Allow to generate graph for netlify/vercel project | `false`                                        |
-| `GH_PAT`            | secrets | string  | `true`   | Github Personal Access Token                       |                                                |
+| `GH_TOKEN`            | secrets | string  | `true`   | Github Personal Access Token                       |                                                |
 | `VERCEL_TOKEN`      | secrets | string  | `false`  | Vercel Token (only in vercel workflows)            |                                                |
 | `VERCEL_ORG_ID`     | secrets | string  | `false`  | Vercel Organization ID (only in vercel workflows)  |                                                |
 | `VERCEL_PROJECT_ID` | secrets | string  | `false`  | Vercel Project ID (only in vercel)                 |                                                |
@@ -91,7 +91,7 @@ You can also set `DRY_RUN` to `true` to only print the command that will be exec
 | -------------- | ------- | ------- | -------- | -------------------------------------------- | ---------------------------------------------- |
 | `DRY_RUN`      | inputs  | boolean | `false`  | Only print the command that will be executed | false                                          |
 | `CLEAN`        | inputs  | boolean | `false`  | Clean unused images                          | true                                           |
-| `GH_PAT`       | secrets | string  | `true`   | Github Personal Access Token                 |                                                |
+| `GH_TOKEN`       | secrets | string  | `true`   | Github Personal Access Token                 |                                                |
 | `author_name`  | secrets | string  | `false`  | Author name for signed commit                | `github-actions[bot]`                          |
 | `author_email` | secrets | string  | `false`  | Author email for signed commit               | `github-actions[bot]@users.noreply.github.com` |
 
@@ -118,7 +118,7 @@ It Allows you to quickly create a new "category" / blog listing in your reposito
 
 | Key             | Context | Type    | Required | Description                                          | Default                                        |
 | --------------- | ------- | ------- | -------- | ---------------------------------------------------- | ---------------------------------------------- |
-| `GH_PAT`        | secrets | string  | `true`   | Github Personal Access Token                         |                                                |
+| `GH_TOKEN`        | secrets | string  | `true`   | Github Personal Access Token                         |                                                |
 | `author_name`   | secrets | string  | `false`  | Author name for signed commit                        | `github-actions[bot]`                          |
 | `author_email`  | secrets | string  | `false`  | Author email for signed commit                       | `github-actions[bot]@users.noreply.github.com` |
 | `category_name` | inputs  | string  | `true`   | The new folder name                                  |                                                |
@@ -149,7 +149,7 @@ The `AUTO_MERGE` inputs can be set to `true` to automatically merge the pull req
 | `AUTO_MERGE`     | inputs  | boolean | `false`  | Auto-merge the PR request to update                       | `false`                                        |
 | `EXCLUDED-FILES` | inputs  | string  | `false`  | List of file excluded, separate multiple files by a space | `""`                                           |
 | `BASE_BRANCH`    | inputs  | string  | `false`  | The branch where the PR will be merged/made               | `"main"`                                       |
-| `GH_PAT`         | secrets | string  | `true`   | Github Personal Access Token                              |                                                |
+| `GH_TOKEN`         | secrets | string  | `true`   | Github Personal Access Token                              |                                                |
 | `AUTHOR_NAME`    | secrets | string  | `false`  | Author name for signed commit                             | `github-actions[bot]`                          |
 | `AUTHOR_EMAIL`   | secrets | string  | `false`  | Author email for signed commit                            | `github-actions[bot]@users.noreply.github.com` |
 

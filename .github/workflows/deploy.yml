@@ -49,7 +49,7 @@ jobs:
               ACTION_REQUIREMENTS=true
             fi
           fi
-          GENERATE_GRAPH=${{ github.event.inputs.GENERATE_GRAPH || 'false'}}
+          GENERATE_GRAPH=${{ inputs.GENERATE_GRAPH || 'false'}}
           echo "ACTION_REQUIREMENTS = $ACTION_REQUIREMENTS"
           echo "GENERATE_GRAPH = $GENERATE_GRAPH"
           if [[ $GENERATE_GRAPH == 'true' && $ACTION_REQUIREMENTS == 'true' ]]; then
